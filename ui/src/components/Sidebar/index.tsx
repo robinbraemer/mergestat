@@ -1,45 +1,40 @@
 import { Sidebar } from '@mergestat/blocks'
 import { CogIcon, DatabaseIcon, RepositoryIcon, TerminalIcon } from '@mergestat/icons'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 
 const SidebarView: React.FC = () => {
-  const { pathname } = useRouter()
+  const { pathname, push } = useRouter()
 
   const isSidebarActive = (path: string) => !!pathname.match(path)?.length
 
   return (
     <Sidebar>
-      <Link href="/repos" passHref>
-        <Sidebar.Item
-          label="Repos"
-          active={isSidebarActive('repos')}
-          icon={<RepositoryIcon className='t-icon' />}
-        />
-      </Link>
-      <Link href="/queries" passHref>
-        <Sidebar.Item
-          label="Queries"
-          active={isSidebarActive('queries')}
-          icon={<TerminalIcon className='t-icon' />}
-        />
-      </Link>
-      <Link href="/connect" passHref>
-        <Sidebar.Item
-          label="Connect"
-          active={isSidebarActive('connect')}
-          icon={<DatabaseIcon className='t-icon' />}
-        />
-      </Link>
+      <Sidebar.Item
+        label="Repos"
+        active={isSidebarActive('repos')}
+        onClick={() => push('/repos')}
+        icon={<RepositoryIcon className='t-icon' />}
+      />
+      <Sidebar.Item
+        label="Queries"
+        active={isSidebarActive('queries')}
+        onClick={() => push('/queries')}
+        icon={<TerminalIcon className='t-icon' />}
+      />
+      <Sidebar.Item
+        label="Connect"
+        active={isSidebarActive('connect')}
+        onClick={() => push('/connect')}
+        icon={<DatabaseIcon className='t-icon' />}
+      />
       <Sidebar.Divider />
-      <Link href="/settings" passHref>
-        <Sidebar.Item
-          label="Settings"
-          active={isSidebarActive('settings')}
-          icon={<CogIcon className='t-icon' />}
-        />
-      </Link>
+      <Sidebar.Item
+        label="Settings"
+        active={isSidebarActive('settings')}
+        onClick={() => push('/settings')}
+        icon={<CogIcon className='t-icon' />}
+      />
     </Sidebar>
   )
 }
